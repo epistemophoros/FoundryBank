@@ -21,7 +21,7 @@ A comprehensive banking system module for Foundry Virtual Tabletop. Manage chara
 2. Click **Install Module**
 3. Paste the following Manifest URL:
    ```
-   https://github.com/epistemophoros/FoundryBank/releases/latest/download/module.json
+   https://raw.githubusercontent.com/epistemophoros/FoundryBank/main/module.json
    ```
 4. Click **Install** and wait for the installation to complete
 5. Enable the module in your world's **Manage Modules** settings
