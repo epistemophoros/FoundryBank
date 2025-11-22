@@ -10,9 +10,30 @@ export class EconomySystem {
         this.storageKey = 'foundrybank';
     }
     /**
+     * Ensure that the backing world setting exists before accessing it.
+     */
+    ensureEconomySetting() {
+        const settingId = `${this.storageKey}.economyData`;
+        const settings = game.settings?.settings;
+        if (settings?.has(settingId)) {
+            return;
+        }
+        game.settings.register(this.storageKey, 'economyData', {
+            scope: 'world',
+            config: false,
+            type: Object,
+            default: {
+                economies: [],
+                currencies: [],
+                exchangeRates: []
+            }
+        });
+    }
+    /**
      * Initialize the economy system
      */
     async initialize() {
+        this.ensureEconomySetting();
         await this.loadData();
         // Create default D&D 5e economy if none exists
         if (this.economies.size === 0) {
@@ -224,6 +245,7 @@ export class EconomySystem {
      * Save data
      */
     async saveData() {
+        this.ensureEconomySetting();
         const data = {
             economies: Array.from(this.economies.entries()),
             currencies: Array.from(this.currencies.entries()),
@@ -235,6 +257,7 @@ export class EconomySystem {
      * Load data
      */
     async loadData() {
+        this.ensureEconomySetting();
         const data = game.settings.get(this.storageKey, 'economyData');
         if (data?.economies) {
             this.economies = new Map(data.economies);

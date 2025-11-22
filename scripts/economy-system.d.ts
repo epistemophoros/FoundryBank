@@ -34,6 +34,10 @@ export declare class EconomySystem {
     private exchangeRates;
     private storageKey;
     /**
+     * Ensure that the backing world setting exists before accessing it.
+     */
+    private ensureEconomySetting;
+    /**
      * Initialize the economy system
      */
     initialize(): Promise<void>;
