@@ -31,7 +31,7 @@
   ],
   "url": "https://github.com/epistemophoros/FoundryBank",
   "manifest": "https://raw.githubusercontent.com/epistemophoros/FoundryBank/main/module.json",
-  "download": "https://github.com/epistemophoros/FoundryBank/releases/download/v1.0.0-dev/foundrybank.zip",
+  "download": "https://github.com/epistemophoros/FoundryBank/foundrybank.zip",
   "license": "LICENSE",
   "readme": "README.md",
   "media": [
