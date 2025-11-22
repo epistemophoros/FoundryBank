@@ -35,6 +35,9 @@ export class FoundryBank {
 
     console.log('FoundryBank | Initializing...');
 
+    // Register settings FIRST - systems need them to load data
+    BankSettings.register();
+
     // Register Handlebars helpers
     registerHandlebarsHelpers();
 
@@ -67,9 +70,6 @@ export class FoundryBank {
     // Initialize Banker System
     this.bankerSystem = new BankerSystem();
     await this.bankerSystem.initialize();
-
-    // Register settings
-    BankSettings.register();
 
     // Register hooks
     this.registerHooks();
@@ -129,6 +129,7 @@ export class FoundryBank {
       // Add GM Manager button to settings menu
       if (game.user?.isGM) {
         this.addGMManagerButton();
+        this.addGMManagerMenuItem();
       }
     });
 
@@ -176,7 +177,7 @@ export class FoundryBank {
       const foundrybankSettings = html.find('#settings-foundrybank');
       if (foundrybankSettings.length) {
         const managerButton = $(`
-          <button type="button" class="foundrybank-gm-manager-btn" style="margin-top: 10px;">
+          <button type="button" class="foundrybank-gm-manager-btn" style="margin-top: 10px; width: 100%;">
             <i class="fas fa-cog"></i> Open FoundryBank Manager
           </button>
         `);
@@ -186,6 +187,30 @@ export class FoundryBank {
         });
         
         foundrybankSettings.append(managerButton);
+      }
+    });
+  }
+
+  /**
+   * Add GM Manager menu item to settings navigation
+   */
+  private static addGMManagerMenuItem(): void {
+    Hooks.on('renderSettings', (app: any, html: JQuery) => {
+      // Add menu item in the settings navigation
+      const nav = html.find('.settings-nav');
+      if (nav.length && !html.find('.foundrybank-manager-menu-item').length) {
+        const menuItem = $(`
+          <a class="item foundrybank-manager-menu-item" data-tab="foundrybank-manager">
+            <i class="fas fa-university"></i> FoundryBank Manager
+          </a>
+        `);
+        
+        menuItem.on('click', (event: JQuery.ClickEvent) => {
+          event.preventDefault();
+          this.openGMManagerDialog();
+        });
+        
+        nav.append(menuItem);
       }
     });
   }

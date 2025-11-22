@@ -22,6 +22,8 @@ export class FoundryBank {
         if (this.initialized)
             return;
         console.log('FoundryBank | Initializing...');
+        // Register settings FIRST - systems need them to load data
+        BankSettings.register();
         // Register Handlebars helpers
         registerHandlebarsHelpers();
         // Initialize Economy System first (framework for economies/currencies)
@@ -47,8 +49,6 @@ export class FoundryBank {
         // Initialize Banker System
         this.bankerSystem = new BankerSystem();
         await this.bankerSystem.initialize();
-        // Register settings
-        BankSettings.register();
         // Register hooks
         this.registerHooks();
         // Register token controls
@@ -99,6 +99,7 @@ export class FoundryBank {
             // Add GM Manager button to settings menu
             if (game.user?.isGM) {
                 this.addGMManagerButton();
+                this.addGMManagerMenuItem();
             }
         });
         // Hook into actor updates to sync bank data
@@ -140,7 +141,7 @@ export class FoundryBank {
             const foundrybankSettings = html.find('#settings-foundrybank');
             if (foundrybankSettings.length) {
                 const managerButton = $(`
-          <button type="button" class="foundrybank-gm-manager-btn" style="margin-top: 10px;">
+          <button type="button" class="foundrybank-gm-manager-btn" style="margin-top: 10px; width: 100%;">
             <i class="fas fa-cog"></i> Open FoundryBank Manager
           </button>
         `);
@@ -148,6 +149,27 @@ export class FoundryBank {
                     this.openGMManagerDialog();
                 });
                 foundrybankSettings.append(managerButton);
+            }
+        });
+    }
+    /**
+     * Add GM Manager menu item to settings navigation
+     */
+    static addGMManagerMenuItem() {
+        Hooks.on('renderSettings', (app, html) => {
+            // Add menu item in the settings navigation
+            const nav = html.find('.settings-nav');
+            if (nav.length && !html.find('.foundrybank-manager-menu-item').length) {
+                const menuItem = $(`
+          <a class="item foundrybank-manager-menu-item" data-tab="foundrybank-manager">
+            <i class="fas fa-university"></i> FoundryBank Manager
+          </a>
+        `);
+                menuItem.on('click', (event) => {
+                    event.preventDefault();
+                    this.openGMManagerDialog();
+                });
+                nav.append(menuItem);
             }
         });
     }
