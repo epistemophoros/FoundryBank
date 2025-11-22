@@ -11,7 +11,7 @@
     "check": "tsc --noEmit",
     "lint": "tsc --noEmit",
     "test:all": "npm run check && npm run test",
-    "deploy": "powershell -ExecutionPolicy Bypass -File deploy-dev.ps1"
+    "deploy": "bash deploy-dev.sh"
   },
   "keywords": [
     "foundry-vtt",

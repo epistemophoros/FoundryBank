@@ -1,41 +1,35 @@
-# Quick Deploy - Get Testing in 2 Minutes!
+# Quick Deploy - Ubuntu/Linux Server
 
-## Step 1: Get GitHub Token (30 seconds)
+## One-Time Setup
 
-1. Go to: https://github.com/settings/tokens
-2. Click **"Generate new token (classic)"**
-3. Name it: `FoundryBank Deploy`
-4. Check the **`repo`** checkbox
-5. Click **"Generate token"**
-6. **COPY THE TOKEN** (you won't see it again!)
+1. **Get GitHub token:**
+   - https://github.com/settings/tokens
+   - Generate new token (classic)
+   - Check `repo` permission
+   - Copy the token
 
-## Step 2: Set Token (10 seconds)
+2. **Set token (add to ~/.bashrc for permanent):**
+   ```bash
+   export GITHUB_TOKEN="your-token-here"
+   ```
 
-**In PowerShell, run:**
-```powershell
-$env:GITHUB_TOKEN = "paste-your-token-here"
-```
+## Deploy
 
-## Step 3: Deploy! (30 seconds)
-
-```powershell
+```bash
 npm run deploy
 ```
 
-That's it! The module is now available for testing in Foundry VTT.
+That's it! The module is immediately available for testing.
 
 ## Install in Foundry VTT
 
-1. Open Foundry VTT
-2. **Add-on Modules** → **Install Module**
-3. Paste: `https://raw.githubusercontent.com/epistemophoros/FoundryBank/main/module.json`
-4. Click **Install**
+Use manifest URL:
+```
+https://raw.githubusercontent.com/epistemophoros/FoundryBank/main/module.json
+```
 
-## Update Anytime
+## Requirements
 
-Just run `npm run deploy` again - it automatically updates the same release!
-
----
-
-**Note:** The token is only for this terminal session. To make it permanent, see `DEPLOY_INSTRUCTIONS.md`.
-
+- `curl` (usually pre-installed)
+- `jq` (install with: `sudo apt install jq`)
+- `zip` (install with: `sudo apt install zip`)
