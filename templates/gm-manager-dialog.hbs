@@ -1,0 +1,225 @@
+<div class="gm-manager-content">
+  <div class="gm-manager-header">
+    <h2><i class="fas fa-cog"></i> FoundryBank Manager</h2>
+    <div class="gm-manager-actions">
+      <button class="refresh-btn" type="button" title="Refresh">
+        <i class="fas fa-sync-alt"></i>
+      </button>
+    </div>
+  </div>
+
+  <div class="gm-manager-tabs">
+    <button class="tab-button {{#if (eq activeTab 'economies')}}active{{/if}}" data-tab="economies">
+      <i class="fas fa-globe"></i> Economies
+    </button>
+    <button class="tab-button {{#if (eq activeTab 'banks')}}active{{/if}}" data-tab="banks">
+      <i class="fas fa-university"></i> Banks
+    </button>
+    <button class="tab-button {{#if (eq activeTab 'properties')}}active{{/if}}" data-tab="properties">
+      <i class="fas fa-building"></i> Properties
+    </button>
+    <button class="tab-button {{#if (eq activeTab 'stocks')}}active{{/if}}" data-tab="stocks">
+      <i class="fas fa-chart-line"></i> Stocks
+    </button>
+    <button class="tab-button {{#if (eq activeTab 'economy')}}active{{/if}}" data-tab="economy">
+      <i class="fas fa-chart-bar"></i> Economy
+    </button>
+    <button class="tab-button {{#if (eq activeTab 'bankers')}}active{{/if}}" data-tab="bankers">
+      <i class="fas fa-user-tie"></i> Bankers
+    </button>
+  </div>
+
+  <div class="gm-manager-body">
+    {{#if (eq activeTab 'economies')}}
+      <div class="tab-content">
+        <div class="section-header">
+          <h3>Economies</h3>
+          <button class="create-economy-btn" type="button">
+            <i class="fas fa-plus"></i> Create Economy
+          </button>
+        </div>
+        <div class="economies-list">
+          {{#each economies}}
+            <div class="economy-item">
+              <div class="economy-header">
+                <h4>{{this.name}}</h4>
+                <span class="economy-type">{{this.type}}</span>
+              </div>
+              <div class="economy-details">
+                <p>{{this.description}}</p>
+                <div class="economy-stats">
+                  <span>Growth: {{multiply this.growthRate 100}}%</span>
+                  <span>Interest: {{multiply this.baseInterestRate 100}}%</span>
+                </div>
+              </div>
+              <div class="economy-actions">
+                <button class="edit-economy-btn" data-economy-id="{{this.id}}" type="button">
+                  <i class="fas fa-edit"></i> Edit
+                </button>
+                <button class="create-currency-btn" data-economy-id="{{this.id}}" type="button">
+                  <i class="fas fa-coins"></i> Add Currency
+                </button>
+              </div>
+              <div class="economy-currencies">
+                {{#each (lookup ../currencies this.id)}}
+                  <div class="currency-badge">{{this.symbol}} - {{this.name}}</div>
+                {{/each}}
+              </div>
+            </div>
+          {{/each}}
+        </div>
+      </div>
+    {{/if}}
+
+    {{#if (eq activeTab 'banks')}}
+      <div class="tab-content">
+        <div class="section-header">
+          <h3>Banks</h3>
+          <button class="create-bank-btn" type="button">
+            <i class="fas fa-plus"></i> Create Bank
+          </button>
+        </div>
+        <div class="banks-list">
+          {{#each banks}}
+            <div class="bank-item">
+              <h4>{{this.name}}</h4>
+              <p>{{this.description}}</p>
+              <div class="bank-info">
+                <span>Economy: {{this.economyId}}</span>
+                {{#if this.location}}<span>Location: {{this.location}}</span>{{/if}}
+              </div>
+              <button class="edit-bank-btn" data-bank-id="{{this.id}}" type="button">
+                <i class="fas fa-edit"></i> Edit
+              </button>
+            </div>
+          {{/each}}
+        </div>
+      </div>
+    {{/if}}
+
+    {{#if (eq activeTab 'properties')}}
+      <div class="tab-content">
+        <div class="section-header">
+          <h3>Properties</h3>
+          <button class="create-property-btn" type="button">
+            <i class="fas fa-plus"></i> Create Property
+          </button>
+        </div>
+        <div class="properties-list">
+          {{#each properties}}
+            <div class="property-item">
+              <div class="property-header">
+                <h4>{{this.name}}</h4>
+                <span class="property-type">{{this.type}}</span>
+                <span class="property-status {{this.status}}">{{this.status}}</span>
+              </div>
+              <p>{{this.description}}</p>
+              <div class="property-info">
+                <div class="property-value">
+                  <strong>Value:</strong> {{this.currentValue}} (Purchase: {{this.purchasePrice}})
+                </div>
+                {{#if this.ownerId}}
+                  <div class="property-owner">
+                    <strong>Owner:</strong> {{this.ownerId}}
+                  </div>
+                {{/if}}
+                {{#if this.location}}
+                  <div class="property-location">
+                    <strong>Location:</strong> {{this.location}}
+                  </div>
+                {{/if}}
+              </div>
+              <div class="property-actions">
+                <button class="edit-property-btn" data-property-id="{{this.id}}" type="button">
+                  <i class="fas fa-edit"></i> Edit
+                </button>
+                <button class="update-property-value-btn" data-property-id="{{this.id}}" type="button">
+                  <i class="fas fa-dollar-sign"></i> Update Value
+                </button>
+              </div>
+            </div>
+          {{/each}}
+        </div>
+      </div>
+    {{/if}}
+
+    {{#if (eq activeTab 'stocks')}}
+      <div class="tab-content">
+        <div class="section-header">
+          <h3>Stocks</h3>
+          <button class="create-stock-btn" type="button">
+            <i class="fas fa-plus"></i> Create Stock
+          </button>
+          <button class="update-stock-prices-btn" type="button">
+            <i class="fas fa-sync"></i> Update Prices
+          </button>
+        </div>
+        <div class="stocks-list">
+          {{#each stocks}}
+            <div class="stock-item">
+              <div class="stock-header">
+                <h4>{{this.symbol}} - {{this.name}}</h4>
+                <span class="stock-price">{{this.currentPrice}} {{this.currency}}</span>
+              </div>
+              <div class="stock-info">
+                <span>Base: {{this.basePrice}}</span>
+                <span>Volatility: {{multiply this.volatility 100}}%</span>
+              </div>
+            </div>
+          {{/each}}
+        </div>
+      </div>
+    {{/if}}
+
+    {{#if (eq activeTab 'economy')}}
+      <div class="tab-content">
+        <div class="economy-controls">
+          <h3>Economic Growth</h3>
+          <div class="growth-display">
+            <div class="current-growth">
+              Current Growth: <strong>{{multiply economicState.growthRate 100}}%</strong>
+            </div>
+            <button class="update-growth-btn" type="button">
+              <i class="fas fa-edit"></i> Update Growth Rate
+            </button>
+          </div>
+          
+          <h3>Exchange Rates</h3>
+          <button class="set-exchange-rate-btn" type="button">
+            <i class="fas fa-exchange-alt"></i> Set Exchange Rate
+          </button>
+        </div>
+      </div>
+    {{/if}}
+
+    {{#if (eq activeTab 'bankers')}}
+      <div class="tab-content">
+        <div class="section-header">
+          <h3>Bankers</h3>
+          <button class="create-banker-btn" type="button">
+            <i class="fas fa-plus"></i> Register Banker
+          </button>
+        </div>
+        <div class="bankers-list">
+          {{#each bankers}}
+            <div class="banker-item">
+              <div class="banker-header">
+                <h4>{{this.name}}</h4>
+                {{#if this.title}}<span class="banker-title">{{this.title}}</span>{{/if}}
+              </div>
+              {{#if this.description}}<p>{{this.description}}</p>{{/if}}
+              <div class="banker-info">
+                <span>Bank: {{this.bankId}}</span>
+                <span>Status: {{#if this.isActive}}Active{{else}}Inactive{{/if}}</span>
+              </div>
+              <button class="remove-banker-btn" data-actor-id="{{this.actorId}}" type="button">
+                <i class="fas fa-trash"></i> Remove Banker
+              </button>
+            </div>
+          {{/each}}
+        </div>
+      </div>
+    {{/if}}
+  </div>
+</div>
+

@@ -1,0 +1,108 @@
+{
+  "FOUNDRYBANK": {
+    "BankDialog": "Bank",
+    "OpenBank": "Open Bank",
+    "NoActor": "This token has no associated actor.",
+    "Accounts": "Accounts",
+    "NoAccounts": "No accounts found. Create your first account to get started.",
+    "CreateFirstAccount": "Create First Account",
+    "SelectAccount": "Select an account to view details",
+    "CreateAccount": "Create Account",
+    "AccountName": "Account Name",
+    "AccountNamePlaceholder": "Enter account name",
+    "AccountNameRequired": "Account name is required",
+    "AccountCreated": "Account created successfully",
+    "AccountDeleted": "Account deleted successfully",
+    "Currency": "Currency",
+    "Deposit": "Deposit",
+    "Withdraw": "Withdraw",
+    "Transfer": "Transfer",
+    "DeleteAccount": "Delete Account",
+    "ConfirmDeleteAccount": "Are you sure you want to delete the account '{name}'? This action cannot be undone.",
+    "CannotDeleteNonZeroBalance": "Cannot delete account with non-zero balance",
+    "Amount": "Amount",
+    "Description": "Description",
+    "DescriptionPlaceholder": "Optional transaction description",
+    "InvalidAmount": "Please enter a valid amount",
+    "DepositSuccess": "Deposit successful",
+    "WithdrawSuccess": "Withdrawal successful",
+    "TransferSuccess": "Transfer successful",
+    "InsufficientFunds": "Insufficient funds",
+    "FromAccount": "From Account",
+    "ToAccount": "To Account",
+    "SelectTargetAccount": "Select target account",
+    "TransactionHistory": "Transaction History",
+    "NoTransactions": "No transactions yet",
+    "Create": "Create",
+    "Confirm": "Confirm",
+    "Cancel": "Cancel",
+    "Refresh": "Refresh",
+    "Delete": "Delete",
+    "Settings": {
+      "DefaultCurrency": {
+        "Name": "Default Currency",
+        "Hint": "The default currency type for new bank accounts"
+      },
+      "EnableLogging": {
+        "Name": "Enable Transaction Logging",
+        "Hint": "Enable automatic logging of all banking transactions"
+      },
+      "TransactionHistoryLimit": {
+        "Name": "Transaction History Limit",
+        "Hint": "Maximum number of transactions to keep in history per account"
+      },
+      "EnableShiftClick": {
+        "Name": "Enable Shift+Click to Open Bank",
+        "Hint": "Allow opening bank dialog by holding Shift and clicking on a token"
+      },
+      "InterestRate": {
+        "Name": "Annual Interest Rate",
+        "Hint": "Annual interest rate for deposits (0.00 to 0.50 = 0% to 50%)"
+      },
+      "EnableInterest": {
+        "Name": "Enable Interest on Deposits",
+        "Hint": "Enable automatic interest calculation on bank deposits"
+      },
+      "EnableDnd5eSync": {
+        "Name": "Enable D&D 5e Currency Sync",
+        "Hint": "Sync bank accounts with D&D 5e character currency (pp, gp, ep, sp, cp)"
+      },
+      "EconomicGrowthRate": {
+        "Name": "Economic Growth Rate",
+        "Hint": "Economic growth rate (-1.0 to 1.0). Affects interest rates and stock prices"
+      }
+    },
+    "Interest": "Interest",
+    "InterestEarned": "Interest Earned",
+    "InterestRate": "Interest Rate",
+    "Loans": "Loans",
+    "CreateLoan": "Create Loan",
+    "LoanAmount": "Loan Amount",
+    "LoanInterestRate": "Loan Interest Rate",
+    "LoanTerm": "Loan Term (days)",
+    "PaymentSchedule": "Payment Schedule",
+    "MakePayment": "Make Payment",
+    "LoanBalance": "Loan Balance",
+    "TotalPaid": "Total Paid",
+    "NextPayment": "Next Payment",
+    "Stocks": "Stocks",
+    "StockMarket": "Stock Market",
+    "CreateStock": "Create Stock",
+    "StockSymbol": "Symbol",
+    "StockName": "Company Name",
+    "StockPrice": "Current Price",
+    "Volatility": "Volatility",
+    "BuyStock": "Buy Stock",
+    "SellStock": "Sell Stock",
+    "Shares": "Shares",
+    "CurrentPrice": "Current Price",
+    "AveragePrice": "Average Price",
+    "Profit": "Profit",
+    "Holdings": "Holdings",
+    "EconomicGrowth": "Economic Growth",
+    "SyncWithActorCurrency": "Sync with Character Currency",
+    "DepositFromInventory": "Deposit from Inventory",
+    "WithdrawToInventory": "Withdraw to Inventory"
+  }
+}
+

@@ -1,0 +1,27 @@
+<form class="create-bank-form">
+  <div class="form-group">
+    <label for="bank-name">Bank Name *</label>
+    <input type="text" id="bank-name" name="name" required placeholder="e.g., Royal Bank" />
+  </div>
+  
+  <div class="form-group">
+    <label for="bank-economy">Economy *</label>
+    <select id="bank-economy" name="economyId" required>
+      <option value="">Select Economy</option>
+      {{#each economies}}
+        <option value="{{this.id}}">{{this.name}}</option>
+      {{/each}}
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="bank-description">Description</label>
+    <textarea id="bank-description" name="description" rows="3" placeholder="Bank description"></textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="bank-location">Location</label>
+    <input type="text" id="bank-location" name="location" placeholder="e.g., Capital City" />
+  </div>
+</form>
+

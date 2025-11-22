@@ -1,0 +1,347 @@
+/**
+ * GM Manager Dialog Styles
+ */
+
+.gm-manager-dialog {
+  font-family: var(--font-primary);
+}
+
+.gm-manager-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 1rem;
+}
+
+.gm-manager-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  border-bottom: 2px solid var(--color-border-light-primary);
+  background: var(--color-bg-app);
+}
+
+.gm-manager-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: var(--color-text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.gm-manager-tabs {
+  display: flex;
+  gap: 0.5rem;
+  border-bottom: 2px solid var(--color-border-light-primary);
+  padding: 0 0.5rem;
+}
+
+.tab-button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-bottom: 3px solid transparent;
+  background: transparent;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tab-button:hover {
+  color: var(--color-text-primary);
+  background: var(--color-bg-app-highlight);
+}
+
+.tab-button.active {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+  background: var(--color-bg-app-highlight);
+}
+
+.gm-manager-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+}
+
+.tab-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.section-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--color-text-primary);
+}
+
+.section-header button {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--color-border-light-primary);
+  background: var(--color-primary);
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.section-header button:hover {
+  background: var(--color-primary-dark);
+}
+
+/* Economy Items */
+.economies-list,
+.banks-list,
+.properties-list,
+.stocks-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+.economy-item,
+.bank-item,
+.property-item,
+.stock-item {
+  padding: 1rem;
+  border: 1px solid var(--color-border-light-primary);
+  border-radius: 4px;
+  background: var(--color-bg-app);
+  transition: all 0.2s ease;
+}
+
+.economy-item:hover,
+.bank-item:hover,
+.property-item:hover,
+.stock-item:hover {
+  border-color: var(--color-border-light-secondary);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.economy-header,
+.property-header,
+.stock-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.economy-header h4,
+.property-header h4,
+.stock-header h4 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--color-text-primary);
+  flex: 1;
+}
+
+.economy-type,
+.property-type {
+  padding: 0.25rem 0.5rem;
+  background: var(--color-bg-app-highlight);
+  border-radius: 4px;
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  text-transform: capitalize;
+}
+
+.property-status {
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.property-status.available {
+  background: #4caf50;
+  color: white;
+}
+
+.property-status.owned {
+  background: #2196f3;
+  color: white;
+}
+
+.property-status.rented {
+  background: #ff9800;
+  color: white;
+}
+
+.economy-details,
+.property-info,
+.stock-info {
+  margin: 0.5rem 0;
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+}
+
+.economy-stats {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.economy-actions,
+.property-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.economy-actions button,
+.property-actions button {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--color-border-light-primary);
+  background: var(--color-bg-app);
+  color: var(--color-text-primary);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+}
+
+.economy-actions button:hover,
+.property-actions button:hover {
+  background: var(--color-bg-app-highlight);
+  border-color: var(--color-border-light-secondary);
+}
+
+.economy-currencies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.currency-badge {
+  padding: 0.25rem 0.5rem;
+  background: var(--color-bg-app-highlight);
+  border-radius: 4px;
+  font-size: 0.75rem;
+  color: var(--color-text-primary);
+}
+
+.property-value,
+.property-owner,
+.property-location {
+  margin: 0.25rem 0;
+}
+
+.stock-price {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.economy-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.growth-display {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--color-bg-app-highlight);
+  border-radius: 4px;
+}
+
+.current-growth {
+  font-size: 1.1rem;
+}
+
+.current-growth strong {
+  font-size: 1.5rem;
+  color: var(--color-primary);
+}
+
+/* Form Styles */
+.create-economy-form,
+.create-currency-form,
+.create-bank-form,
+.create-property-form,
+.create-stock-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 400px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: var(--color-text-primary);
+  font-size: 0.875rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 0.5rem;
+  border: 1px solid var(--color-border-light-primary);
+  border-radius: 4px;
+  background: var(--color-bg-app);
+  color: var(--color-text-primary);
+  font-size: 0.875rem;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(var(--color-primary-rgb), 0.2);
+}
+
+.form-group small {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  margin-top: 0.25rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .economies-list,
+  .banks-list,
+  .properties-list,
+  .stocks-list {
+    grid-template-columns: 1fr;
+  }
+  
+  .gm-manager-tabs {
+    flex-wrap: wrap;
+  }
+  
+  .tab-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+  }
+}
+

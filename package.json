@@ -1,0 +1,29 @@
+{
+  "name": "foundrybank",
+  "version": "1.0.0",
+  "description": "A comprehensive banking system for Foundry VTT",
+  "main": "scripts/foundrybank.js",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "test": "node scripts/test-logic.js",
+    "verify": "node scripts/verify-systems.js",
+    "check": "tsc --noEmit",
+    "lint": "tsc --noEmit",
+    "test:all": "npm run check && npm run test"
+  },
+  "keywords": [
+    "foundry-vtt",
+    "banking",
+    "economy",
+    "financial"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0",
+    "ts-node": "^10.9.0"
+  }
+}
+

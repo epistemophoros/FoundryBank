@@ -1,0 +1,43 @@
+<form class="create-banker-form">
+  <div class="form-group">
+    <label for="banker-actor">NPC Actor *</label>
+    <select id="banker-actor" name="actorId" required>
+      <option value="">Select NPC</option>
+      {{#each actors}}
+        <option value="{{this.id}}">{{this.name}}</option>
+      {{/each}}
+    </select>
+    <small>Select the NPC actor to register as a banker</small>
+  </div>
+  
+  <div class="form-group">
+    <label for="banker-bank">Bank *</label>
+    <select id="banker-bank" name="bankId" required>
+      <option value="">Select Bank</option>
+      {{#each banks}}
+        <option value="{{this.id}}">{{this.name}}</option>
+      {{/each}}
+    </select>
+    <small>Select which bank this banker works for</small>
+  </div>
+
+  <div class="form-group">
+    <label for="banker-title">Title (Optional)</label>
+    <input type="text" id="banker-title" name="title" placeholder="e.g., Head Teller, Loan Officer" />
+  </div>
+
+  <div class="form-group">
+    <label for="banker-description">Description (Optional)</label>
+    <textarea id="banker-description" name="description" rows="3" placeholder="Banker description or greeting"></textarea>
+  </div>
+
+  <div class="info-box">
+    <p><strong>How it works:</strong></p>
+    <ul>
+      <li>Players can click on the banker NPC token to open the bank</li>
+      <li>A special button appears in the token HUD</li>
+      <li>The bank dialog opens for the player's character</li>
+    </ul>
+  </div>
+</form>
+

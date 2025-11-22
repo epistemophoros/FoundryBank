@@ -1,0 +1,104 @@
+<div class="bank-dialog-content">
+  <div class="bank-header">
+    <h2><i class="fas fa-university"></i> {{localize "FOUNDRYBANK.BankDialog"}}</h2>
+    <div class="bank-actions">
+      <button class="create-account-btn" type="button">
+        <i class="fas fa-plus"></i> {{localize "FOUNDRYBANK.CreateAccount"}}
+      </button>
+      <button class="refresh-btn" type="button" title="{{localize "FOUNDRYBANK.Refresh"}}">
+        <i class="fas fa-sync-alt"></i>
+      </button>
+    </div>
+  </div>
+
+  <div class="bank-body">
+    <div class="accounts-panel">
+      <h3>{{localize "FOUNDRYBANK.Accounts"}}</h3>
+      <div class="accounts-list">
+        {{#if accounts.length}}
+          {{#each accounts}}
+            <div class="account-item {{#if (eq ../selectedAccount.id this.id)}}selected{{/if}}" 
+                 data-account-id="{{this.id}}">
+              <div class="account-name">{{this.accountName}}</div>
+              <div class="account-balance">
+                <span class="balance-amount">{{this.balance}}</span>
+                <span class="balance-currency">{{this.currency}}</span>
+              </div>
+            </div>
+          {{/each}}
+        {{else}}
+          <div class="no-accounts">
+            <p>{{localize "FOUNDRYBANK.NoAccounts"}}</p>
+            <button class="create-account-btn" type="button">
+              <i class="fas fa-plus"></i> {{localize "FOUNDRYBANK.CreateFirstAccount"}}
+            </button>
+          </div>
+        {{/if}}
+      </div>
+    </div>
+
+    <div class="account-details-panel">
+      {{#if selectedAccount}}
+        <div class="account-details">
+          <div class="account-header">
+            <h3>{{selectedAccount.accountName}}</h3>
+            <div class="account-balance-large">
+              <span class="balance-amount">{{selectedAccount.balance}}</span>
+              <span class="balance-currency">{{selectedAccount.currency}}</span>
+            </div>
+          </div>
+
+          <div class="account-actions">
+            <button class="deposit-btn" type="button">
+              <i class="fas fa-arrow-down"></i> {{localize "FOUNDRYBANK.Deposit"}}
+            </button>
+            <button class="withdraw-btn" type="button">
+              <i class="fas fa-arrow-up"></i> {{localize "FOUNDRYBANK.Withdraw"}}
+            </button>
+            <button class="transfer-btn" type="button">
+              <i class="fas fa-exchange-alt"></i> {{localize "FOUNDRYBANK.Transfer"}}
+            </button>
+            {{#if canManage}}
+              <button class="delete-account-btn" type="button" title="{{localize "FOUNDRYBANK.DeleteAccount"}}">
+                <i class="fas fa-trash"></i>
+              </button>
+            {{/if}}
+          </div>
+
+          <div class="transaction-history">
+            <h4>{{localize "FOUNDRYBANK.TransactionHistory"}}</h4>
+            <div class="transactions-list">
+              {{#if transactions.length}}
+                {{#each transactions}}
+                  <div class="transaction-item transaction-{{this.type}}">
+                    <div class="transaction-type">
+                      <i class="fas fa-{{#if (eq this.type 'deposit')}}arrow-down{{else if (eq this.type 'withdrawal')}}arrow-up{{else}}exchange-alt{{/if}}"></i>
+                    </div>
+                    <div class="transaction-details">
+                      <div class="transaction-description">{{this.description}}</div>
+                      <div class="transaction-meta">
+                        <span class="transaction-amount {{this.type}}">
+                          {{#if (eq this.type 'deposit')}}+{{else if (eq this.type 'withdrawal')}}-{{/if}}{{this.amount}} {{this.currency}}
+                        </span>
+                        <span class="transaction-date">{{formatDate this.timestamp}}</span>
+                      </div>
+                    </div>
+                  </div>
+                {{/each}}
+              {{else}}
+                <div class="no-transactions">
+                  <p>{{localize "FOUNDRYBANK.NoTransactions"}}</p>
+                </div>
+              {{/if}}
+            </div>
+          </div>
+        </div>
+      {{else}}
+        <div class="no-selection">
+          <p>{{localize "FOUNDRYBANK.SelectAccount"}}</p>
+        </div>
+      {{/if}}
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# TypeScript
+*.tsbuildinfo
+scripts/*.js
+scripts/*.d.ts
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Foundry
+foundrydata/
+
+# Build artifacts
+dist/
+build/
+

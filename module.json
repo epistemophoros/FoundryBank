@@ -1,0 +1,47 @@
+{
+  "id": "foundrybank",
+  "title": "FoundryBank",
+  "description": "Modular financial system for FoundryVTT with banking, loans, interest, stock markets, and full D&D 5e currency integration. Supports multiple economies, custom banks, properties, and dynamic stock markets tied to economic growth.",
+  "version": "1.0.0",
+  "protected": false,
+  "socket": true,
+  "compatibility": {
+    "minimum": "12",
+    "verified": "13",
+    "maximum": "13"
+  },
+  "authors": [
+    {
+      "name": "Your Name"
+    }
+  ],
+  "esmodules": [
+    "scripts/foundrybank.js"
+  ],
+  "styles": [
+    "styles/foundrybank.css",
+    "styles/bank-dialog.css",
+    "styles/loan-dialog.css",
+    "styles/stock-dialog.css",
+    "styles/gm-manager.css"
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+  "url": "https://github.com/yourusername/foundrybank",
+  "manifest": "https://github.com/yourusername/foundrybank/releases/latest/download/module.json",
+  "download": "https://github.com/yourusername/foundrybank/releases/latest/download/foundrybank.zip",
+  "license": "LICENSE",
+  "readme": "README.md",
+  "media": [
+    {
+      "type": "icon",
+      "url": "icons/foundrybank-icon.png"
+    }
+  ]
+}
+

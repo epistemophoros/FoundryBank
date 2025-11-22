@@ -1,0 +1,35 @@
+<form class="transfer-form">
+  <div class="form-group">
+    <label>{{localize "FOUNDRYBANK.FromAccount"}}</label>
+    <div class="account-info">
+      <strong>{{fromAccount.accountName}}</strong>
+      <span class="account-balance">Balance: {{fromAccount.balance}} {{fromAccount.currency}}</span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="to-account">{{localize "FOUNDRYBANK.ToAccount"}}</label>
+    <select id="to-account" name="toAccount" required>
+      <option value="">{{localize "FOUNDRYBANK.SelectTargetAccount"}}</option>
+      {{#each toAccounts}}
+        <option value="{{this.id}}">{{this.accountName}} ({{this.balance}} {{this.currency}})</option>
+      {{/each}}
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="transaction-amount">{{localize "FOUNDRYBANK.Amount"}}</label>
+    <input type="number" id="transaction-amount" name="amount" 
+           min="0.01" step="0.01" required 
+           placeholder="0.00" />
+    <span class="currency-label">{{fromAccount.currency}}</span>
+  </div>
+
+  <div class="form-group">
+    <label for="transaction-description">{{localize "FOUNDRYBANK.Description"}}</label>
+    <textarea id="transaction-description" name="description" 
+              rows="3" 
+              placeholder="{{localize "FOUNDRYBANK.DescriptionPlaceholder"}}"></textarea>
+  </div>
+</form>
+
