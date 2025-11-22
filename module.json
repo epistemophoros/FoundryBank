@@ -20,9 +20,6 @@
   ],
   "styles": [
     "styles/foundrybank.css",
-    "styles/bank-dialog.css",
-    "styles/loan-dialog.css",
-    "styles/stock-dialog.css",
     "styles/gm-manager.css"
   ],
   "languages": [
