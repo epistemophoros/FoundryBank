@@ -24,4 +24,5 @@ foundrydata/
 # Build artifacts
 dist/
 build/
+foundrybank.zip
 
