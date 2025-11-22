@@ -1,0 +1,45 @@
+name: Dev Release
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-and-release:
+    name: Build and Publish Dev Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build release archive
+        run: bash create-release.sh
+
+      - name: Publish dev release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.0.0-dev
+          name: v1.0.0-dev (Development Build)
+          body: |
+            Automated development build for FoundryBank.
+            Use this build for internal testing in Foundry VTT.
+          prerelease: true
+          files: foundrybank.zip
+          draft: false
+          overwrite: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+

@@ -21,14 +21,14 @@ A comprehensive banking system module for Foundry Virtual Tabletop. Manage chara
 2. Click **Install Module**
 3. Paste the following Manifest URL:
    ```
-   https://github.com/yourusername/foundrybank/releases/latest/download/module.json
+   https://raw.githubusercontent.com/epistemophoros/FoundryBank/main/module.json
    ```
 4. Click **Install** and wait for the installation to complete
 5. Enable the module in your world's **Manage Modules** settings
 
 ### Method 2: Manual Installation
 
-1. Download the latest release from the [Releases page](https://github.com/yourusername/foundrybank/releases)
+1. Download the latest release from the [Releases page](https://github.com/epistemophoros/FoundryBank/releases)
 2. Extract the ZIP file to your Foundry VTT `Data/modules/` directory
 3. Restart Foundry VTT or refresh your browser
 4. Enable the module in your world's **Manage Modules** settings
@@ -134,7 +134,7 @@ If you want to build the module from source:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/foundrybank.git
+   git clone https://github.com/epistemophoros/FoundryBank.git
    cd foundrybank
    ```
 
@@ -162,8 +162,8 @@ This module is licensed under the MIT License. See the [LICENSE](LICENSE) file f
 
 ## Support
 
-- **Issues**: Report bugs or request features on [GitHub Issues](https://github.com/yourusername/foundrybank/issues)
-- **Discussions**: Join discussions on [GitHub Discussions](https://github.com/yourusername/foundrybank/discussions)
+- **Issues**: Report bugs or request features on [GitHub Issues](https://github.com/epistemophoros/FoundryBank/issues)
+- **Discussions**: Join discussions on [GitHub Discussions](https://github.com/epistemophoros/FoundryBank/discussions)
 
 ## Contributing
 

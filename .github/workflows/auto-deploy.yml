@@ -1,0 +1,113 @@
+name: Auto Deploy to Pre-Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+      
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq zip
+      
+      - name: Install dependencies
+        run: npm install
+      
+      - name: Build TypeScript
+        run: npm run build
+      
+      - name: Create release ZIP
+        run: |
+          mkdir -p foundrybank
+          cp -r scripts templates styles lang icons foundrybank/ 2>/dev/null || true
+          cp module.json LICENSE README.md foundrybank/ 2>/dev/null || true
+          cd foundrybank
+          zip -r ../foundrybank.zip . > /dev/null
+          cd ..
+          rm -rf foundrybank
+      
+      - name: Get version from module.json
+        id: version
+        run: |
+          VERSION=$(node -p "require('./module.json').version")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+      
+      - name: Check for existing pre-release
+        id: check-release
+        run: |
+          TAG_NAME="v${{ steps.version.outputs.version }}-dev"
+          EXISTING=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/${{ github.repository }}/releases" | \
+            jq -r ".[] | select(.prerelease == true and .tag_name == \"$TAG_NAME\") | .id" | head -1)
+          
+          if [ -n "$EXISTING" ]; then
+            echo "release_id=$EXISTING" >> $GITHUB_OUTPUT
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Create or Update Pre-Release
+        id: release
+        run: |
+          TAG_NAME="v${{ steps.version.outputs.version }}-dev"
+          if [ "${{ steps.check-release.outputs.exists }}" == "true" ]; then
+            # Delete old asset
+            ASSETS=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+              "https://api.github.com/repos/${{ github.repository }}/releases/${{ steps.check-release.outputs.release_id }}/assets" | \
+              jq -r '.[].id')
+            for asset_id in $ASSETS; do
+              curl -s -X DELETE \
+                -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+                "https://api.github.com/repos/${{ github.repository }}/releases/assets/$asset_id"
+            done
+            
+            # Update release
+            curl -s -X PATCH \
+              -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+              -H "Content-Type: application/json" \
+              -d "{\"tag_name\":\"$TAG_NAME\",\"name\":\"$TAG_NAME (Development Build)\",\"body\":\"Development build - automatically updated on push to main.\",\"prerelease\":true}" \
+              "https://api.github.com/repos/${{ github.repository }}/releases/${{ steps.check-release.outputs.release_id }}"
+            
+            echo "release_id=${{ steps.check-release.outputs.release_id }}" >> $GITHUB_OUTPUT
+          else
+            # Create new release
+            RESPONSE=$(curl -s -X POST \
+              -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+              -H "Content-Type: application/json" \
+              -d "{\"tag_name\":\"$TAG_NAME\",\"name\":\"$TAG_NAME (Development Build)\",\"body\":\"Development build - automatically updated on push to main.\",\"prerelease\":true}" \
+              "https://api.github.com/repos/${{ github.repository }}/releases")
+            
+            RELEASE_ID=$(echo "$RESPONSE" | jq -r '.id')
+            echo "release_id=$RELEASE_ID" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Upload ZIP to Release
+        run: |
+          TAG_NAME="v${{ steps.version.outputs.version }}-dev"
+          UPLOAD_URL="https://uploads.github.com/repos/${{ github.repository }}/releases/${{ steps.release.outputs.release_id }}/assets?name=foundrybank.zip"
+          
+          curl -s -X POST \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Content-Type: application/zip" \
+            --data-binary "@foundrybank.zip" \
+            "$UPLOAD_URL"
+      
+      - name: Success
+        run: |
+          TAG_NAME="v${{ steps.version.outputs.version }}-dev"
+          echo "✓ Successfully deployed!"
+          echo "Download URL: https://github.com/${{ github.repository }}/releases/download/$TAG_NAME/foundrybank.zip"
+          echo "Manifest URL: https://raw.githubusercontent.com/${{ github.repository }}/main/module.json"
+

@@ -10,7 +10,8 @@
     "verify": "node scripts/verify-systems.js",
     "check": "tsc --noEmit",
     "lint": "tsc --noEmit",
-    "test:all": "npm run check && npm run test"
+    "test:all": "npm run check && npm run test",
+    "deploy": "bash deploy-dev.sh"
   },
   "keywords": [
     "foundry-vtt",
@@ -18,7 +19,7 @@
     "economy",
     "financial"
   ],
-  "author": "Your Name",
+  "author": "epistemophoros",
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^20.0.0",
