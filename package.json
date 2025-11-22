@@ -18,7 +18,7 @@
     "economy",
     "financial"
   ],
-  "author": "Your Name",
+  "author": "epistemophoros",
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^20.0.0",
