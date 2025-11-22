@@ -4,8 +4,8 @@ package-lock.json
 
 # TypeScript
 *.tsbuildinfo
-scripts/*.js
-scripts/*.d.ts
+# Note: scripts/*.js files are needed for Foundry VTT, so they are committed
+# scripts/*.d.ts
 
 # IDE
 .vscode/
