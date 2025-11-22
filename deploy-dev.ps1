@@ -1,4 +1,4 @@
-# PowerShell script to build, package, and upload to GitHub draft release
+# PowerShell script to build, package, and upload to GitHub pre-release
 # Requires GITHUB_TOKEN environment variable set with a GitHub Personal Access Token
 
 param(
@@ -48,19 +48,19 @@ $headers = @{
 $tagName = "v$Version-dev"
 $releaseName = "$tagName (Development Build)"
 
-# Check if draft release exists
-Write-Host "Checking for existing draft release..." -ForegroundColor Green
+# Check if pre-release exists
+Write-Host "Checking for existing pre-release..." -ForegroundColor Green
 $releasesUrl = "https://api.github.com/repos/$Repo/releases"
 $releases = Invoke-RestMethod -Uri $releasesUrl -Headers $headers -Method Get
-$draftRelease = $releases | Where-Object { $_.draft -eq $true -and $_.tag_name -eq $tagName } | Select-Object -First 1
+$prerelease = $releases | Where-Object { $_.prerelease -eq $true -and $_.tag_name -eq $tagName } | Select-Object -First 1
 
-if ($draftRelease) {
-    Write-Host "Found existing draft release, updating..." -ForegroundColor Yellow
-    $releaseId = $draftRelease.id
+if ($prerelease) {
+    Write-Host "Found existing pre-release, updating..." -ForegroundColor Yellow
+    $releaseId = $prerelease.id
     
     # Delete existing asset if it exists
-    if ($draftRelease.assets.Count -gt 0) {
-        $assetId = $draftRelease.assets[0].id
+    if ($prerelease.assets.Count -gt 0) {
+        $assetId = $prerelease.assets[0].id
         Write-Host "Deleting old asset..." -ForegroundColor Yellow
         Invoke-RestMethod -Uri "https://api.github.com/repos/$Repo/releases/assets/$assetId" -Headers $headers -Method Delete
     }
@@ -70,23 +70,21 @@ if ($draftRelease) {
         tag_name = $tagName
         name = $releaseName
         body = "Development build - automatically updated. Use this for testing."
-        draft = $true
-        prerelease = $false
+        prerelease = $true
     } | ConvertTo-Json
     
     Invoke-RestMethod -Uri "https://api.github.com/repos/$Repo/releases/$releaseId" -Headers $headers -Method Patch -Body $updateBody -ContentType "application/json"
 } else {
-    Write-Host "Creating new draft release..." -ForegroundColor Green
+    Write-Host "Creating new pre-release..." -ForegroundColor Green
     $createBody = @{
         tag_name = $tagName
         name = $releaseName
         body = "Development build - automatically updated. Use this for testing."
-        draft = $true
-        prerelease = $false
+        prerelease = $true
     } | ConvertTo-Json
     
-    $draftRelease = Invoke-RestMethod -Uri "https://api.github.com/repos/$Repo/releases" -Headers $headers -Method Post -Body $createBody -ContentType "application/json"
-    $releaseId = $draftRelease.id
+    $prerelease = Invoke-RestMethod -Uri "https://api.github.com/repos/$Repo/releases" -Headers $headers -Method Post -Body $createBody -ContentType "application/json"
+    $releaseId = $prerelease.id
 }
 
 # Upload ZIP file
@@ -101,8 +99,8 @@ $uploadHeaders = @{
 
 try {
     $response = Invoke-RestMethod -Uri $uploadUrl -Headers $uploadHeaders -Method Post -Body $fileBytes
-    Write-Host "✓ Successfully uploaded to draft release!" -ForegroundColor Green
-    Write-Host "Release URL: $($draftRelease.html_url)" -ForegroundColor Cyan
+    Write-Host "✓ Successfully uploaded to pre-release!" -ForegroundColor Green
+    Write-Host "Release URL: $($prerelease.html_url)" -ForegroundColor Cyan
     Write-Host "Download URL: https://github.com/$Repo/releases/download/$tagName/foundrybank.zip" -ForegroundColor Cyan
 } catch {
     Write-Host "ERROR uploading file: $_" -ForegroundColor Red
