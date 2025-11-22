@@ -1,5 +1,5 @@
 #!/bin/bash
-# Simple script to build, package, and upload to GitHub draft release
+# Simple script to build, package, and upload to GitHub pre-release
 # Works on Linux/Ubuntu servers
 
 set -e  # Exit on error
@@ -40,12 +40,12 @@ rm -rf foundrybank
 API_URL="https://api.github.com/repos/${REPO}/releases"
 AUTH_HEADER="Authorization: token ${GITHUB_TOKEN}"
 
-# Check if draft release exists
-echo "Checking for existing draft release..."
-EXISTING=$(curl -s -H "$AUTH_HEADER" "$API_URL" | jq -r ".[] | select(.draft == true and .tag_name == \"$TAG_NAME\") | .id" | head -1)
+# Check if pre-release exists
+echo "Checking for existing pre-release..."
+EXISTING=$(curl -s -H "$AUTH_HEADER" "$API_URL" | jq -r ".[] | select(.prerelease == true and .tag_name == \"$TAG_NAME\") | .id" | head -1)
 
 if [ -n "$EXISTING" ]; then
-    echo "Updating existing draft release..."
+    echo "Updating existing pre-release..."
     RELEASE_ID=$EXISTING
     
     # Delete existing asset if it exists
@@ -58,14 +58,14 @@ if [ -n "$EXISTING" ]; then
     curl -s -X PATCH \
         -H "$AUTH_HEADER" \
         -H "Content-Type: application/json" \
-        -d "{\"tag_name\":\"$TAG_NAME\",\"name\":\"$TAG_NAME (Development Build)\",\"body\":\"Development build - automatically updated. Use this for testing.\",\"draft\":true}" \
+        -d "{\"tag_name\":\"$TAG_NAME\",\"name\":\"$TAG_NAME (Development Build)\",\"body\":\"Development build - automatically updated. Use this for testing.\",\"prerelease\":true}" \
         "${API_URL}/${RELEASE_ID}" > /dev/null
 else
-    echo "Creating new draft release..."
+    echo "Creating new pre-release..."
     RESPONSE=$(curl -s -X POST \
         -H "$AUTH_HEADER" \
         -H "Content-Type: application/json" \
-        -d "{\"tag_name\":\"$TAG_NAME\",\"name\":\"$TAG_NAME (Development Build)\",\"body\":\"Development build - automatically updated. Use this for testing.\",\"draft\":true}" \
+        -d "{\"tag_name\":\"$TAG_NAME\",\"name\":\"$TAG_NAME (Development Build)\",\"body\":\"Development build - automatically updated. Use this for testing.\",\"prerelease\":true}" \
         "$API_URL")
     RELEASE_ID=$(echo "$RESPONSE" | jq -r '.id')
 fi
